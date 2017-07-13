@@ -1,0 +1,78 @@
+﻿@model RegisterViewModel
+
+@{
+   ViewData["Title"] = "BCPAO: Register";
+   Layout = "_AccountLayout";
+}
+
+<div class="top-content">
+   <div class="inner-bg">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text">
+               <h1>
+                  @*<i class="fa fa-lock" aria-hidden="true"></i> <strong>BCPAO</strong> Login Registration*@
+               </h1>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top: 1px;">
+               <div class="form-top">
+                  <div class="form-top-left">
+                     <h3>Login to Photo Manager</h3>
+                     <p>Register new user. All fields are required.</p>
+                  </div>
+                  <div class="form-top-right">
+                     <i class="fa fa-key"></i>
+                  </div>
+               </div>
+               <div class="form-bottom">
+                  <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="login-form">
+                     <div class="form-group">
+                        <label asp-for="FirstName" class="sr-only">First Name</label>
+                        <input asp-for="FirstName" class="form-username form-control" type="text" placeholder="First Name..." id="form-firstname" />
+                        @*<span asp-validation-for="FirstName" class="text-danger"></span>*@
+                     </div>
+                     <div class="form-group">
+                        <label asp-for="LastName" class="sr-only">Last Name</label>
+                        <input asp-for="LastName" class="form-username form-control" type="text" placeholder="Last Name..." id="form-lastname" />
+                        @*<span asp-validation-for="LastName" class="text-danger"></span>*@
+                     </div>
+                     <div class="form-group">
+                        <label asp-for="Username" class="sr-only">Username</label>
+                        <input asp-for="Username" class="form-username form-control" type="text" placeholder="Username..." id="form-username" />
+                        @*<span asp-validation-for="Username" class="text-danger"></span>*@
+                     </div>
+                     <div class="form-group">
+                        <label asp-for="Email" class="sr-only">Email Address</label>
+                        <input asp-for="Email" class="form-username form-control" type="text" placeholder="Email Address..." id="form-username" />
+                        @*<span asp-validation-for="Email" class="text-danger"></span>*@
+                     </div>
+                     <div class="form-group">
+                        <label asp-for="Password" class="sr-only">Password</label>
+                        <input type="password" asp-for="Password" class="form-password form-control" placeholder="Password..." id="form-password" />
+                        @*<span asp-validation-for="Password" class="text-danger"></span>*@
+                     </div>
+                     <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="sr-only">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" class="form-password form-control" placeholder="Confirm Password..." id="form-password" />
+                        @*<span asp-validation-for="ConfirmPassword" class="text-danger"></span>*@
+                     </div>
+                     <button type="submit" class="btn">Register</button>
+                     <div style="font-size: 0.7em; margin-top: 5px; text-align: right;">
+                        <a asp-action="Login">LOGIN</a>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <div style="font-size: 1em; margin-top: 10px;">
+            Brevard County Florida Property Appraiser
+         </div>
+      </div>
+   </div>
+</div>
+
+@section Scripts {
+   @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

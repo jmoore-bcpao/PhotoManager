@@ -1,0 +1,63 @@
+@model BCPAO.PhotoManager.Data.User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+@section NavBarText {
+    <text>Dashboard > User Details</text>
+}
+@section Breadcrumbs {
+    @*<ol class="breadcrumb">
+        <li>
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li>
+            <a asp-controller="Users" asp-action="Index">Users</a>
+        </li>
+        <li class="active ng-binding">
+            <a href="javascript:;">Details</a>
+        </li>
+    </ol>*@
+}
+
+<div class="title-bar">
+    <h1 class="title-bar-title">
+        <span class="d-ib">User Details</span>
+        <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+                <span class="sr-only">Add to shortcut list</span>
+            </a>
+        </span>
+    </h1>
+</div>
+
+<div class="panel mb25">
+    <div class="panel-body">
+        <div class="row no-margin">
+            <div class="col-lg-8">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-lg-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

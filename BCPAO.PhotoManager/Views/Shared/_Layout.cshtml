@@ -1,0 +1,794 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BCPAO.PhotoManager.Models
+@inject SignInManager<BCPAO.PhotoManager.Data.User> SignInManager
+@inject UserManager<BCPAO.PhotoManager.Data.User> UserManager
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Force latest IE rendering engine or ChromeFrame if installed -->
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="~/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/favicon-16x16.png" sizes="16x16">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,700">
+    <link rel="stylesheet" href="~/css/font-awesome.css">
+    <link rel="stylesheet" href="~/css/vendor.min.css">
+    <link rel="stylesheet" href="~/css/elephant.css">
+    <link rel="stylesheet" href="~/css/application.css">
+    <link rel="stylesheet" href="~/css/demo.min.css">
+
+    <link rel="stylesheet" href="~/lib/icheck/skins/square/blue.css" asp-append-version="true" />
+
+    
+    @*<link rel="stylesheet" href="~/css/panel.css">
+    <link rel="stylesheet" href="~/css/feather.css">
+    <link rel="stylesheet" href="~/css/animate.css">*@
+    @*<link rel="stylesheet" href="~/css/urban.css">
+    <link rel="stylesheet" href="~/css/urban.skins.css">*@
+
+    <style>
+        .breadcrumb {
+          padding: 8px 15px;
+          margin-bottom: 20px;
+          list-style: none;
+          background-color: #292929;
+          border-radius: 0;
+        }
+        .breadcrumb > li {
+          display: inline-block;
+        }
+        .breadcrumb > li + li:before {
+          content: "> ";
+          padding: 0 5px;
+          color: #ccc;
+        }
+        .breadcrumb > .active {
+          color: #00aced;
+        }
+    </style>
+
+    @RenderSection("styles", required: false)
+</head>
+<body class="layout layout-header-fixed">
+
+    <div class="layout-header">
+        <div class="navbar navbar-default" style="border: 0px solid #ffd800;">
+            <div class="navbar-header" style="border: 0px solid #00aced;">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand navbar-brand-center">
+                    @*<img class="navbar-brand-logo" src="~/img/logo.svg" alt="BCPAO">*@
+                    Photo Manager
+                </a>
+                <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="bars">
+                        <span class="bar-line bar-line-1 out"></span>
+                        <span class="bar-line bar-line-2 out"></span>
+                        <span class="bar-line bar-line-3 out"></span>
+                    </span>
+                    <span class="bars bars-x">
+                        <span class="bar-line bar-line-4"></span>
+                        <span class="bar-line bar-line-5"></span>
+                    </span>
+                </button>
+                <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="arrow-up"></span>
+                    <span class="ellipsis ellipsis-vertical">
+                        <img class="ellipsis-object" width="32" height="32" src="img/0180441436.jpg" alt="Teddy Wilson">
+                    </span>
+                </button>
+            </div>
+
+            <div class="navbar-toggleable">
+                <nav id="navbar" class="navbar-collapse collapse" style="border: 0px solid yellow;">
+                    
+                    <button class="sidenav-toggler hidden-xs" title="Collapse sidenav ( [ )" aria-expanded="true" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="bars">
+                            <span class="bar-line bar-line-1 out"></span>
+                            <span class="bar-line bar-line-2 out"></span>
+                            <span class="bar-line bar-line-3 out"></span>
+                            <span class="bar-line bar-line-4 in"></span>
+                            <span class="bar-line bar-line-5 in"></span>
+                            <span class="bar-line bar-line-6 in"></span>
+                        </span>
+                    </button>
+
+                    @if (IsSectionDefined("NavBarText"))
+                    {
+                        <ul class="nav navbar-nav hidden-xs">
+                            <li>
+                                <p class="navbar-text">
+                                    @if (IsSectionDefined("Breadcrumbs"))
+                                    {
+                                        RenderSection("Breadcrumbs", required: false);
+                                    }
+                                    @RenderSection("NavBarText", required: false)
+                                </p>
+                            </li>
+                        </ul>
+                    }
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="visible-xs-block">
+                            <h4 class="navbar-text text-center">Hi, James Moore</h4>
+                        </li>
+                        <li class="hidden-xs hidden-sm">
+                            <form class="navbar-search navbar-search-collapsed">
+                                <div class="navbar-search-group">
+                                    <input class="navbar-search-input" type="text" placeholder="Search for photos by account&hellip;">
+                                    <button class="navbar-search-toggler" title="Expand search form ( S )" aria-expanded="false" type="submit">
+                                        <span class="icon icon-search icon-lg"></span>
+                                    </button>
+                                    <button class="navbar-search-adv-btn" type="button">Advanced</button>
+                                </div>
+                            </form>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                <span class="icon-with-child hidden-xs">
+                                    <span class="icon icon-envelope-o icon-lg"></span>
+                                    <span class="badge badge-danger badge-above right">@*8*@</span>
+                                </span>
+                                <span class="visible-xs-block">
+                                    <span class="icon icon-envelope icon-lg icon-fw"></span>
+                                    <span class="badge badge-danger pull-right">@*8*@</span>
+                                    Messages
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                                <div class="dropdown-header">
+                                    <a class="dropdown-link" href="compose.html">New Message</a>
+                                    <h5 class="dropdown-heading">Recent messages</h5>
+                                </div>
+                                <div class="dropdown-body">
+                                    <div class="list-group list-group-divided custom-scrollbar">
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0299419341.jpg" alt="Harry Jones">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">16 min</small>
+                                                    <h5 class="notification-heading">Harry Jones</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Hi Teddy, Just wanted to let you know we got the project! We should be starting the planning next week. Harry</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0310728269.jpg" alt="Daniel Taylor">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">2 hr</small>
+                                                    <h5 class="notification-heading">Daniel Taylor</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Teddy Boyyyy, label text isn't vertically aligned with value text in grid forms when using .form-control... DT</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0460697039.jpg" alt="Charlotte Harrison">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">Sep 20</small>
+                                                    <h5 class="notification-heading">Charlotte Harrison</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Dear Teddy, Can we discuss the benefits of this approach during our Monday meeting? Best regards Charlotte Harrison</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0531871454.jpg" alt="Ethan Walker">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">Sep 19</small>
+                                                    <h5 class="notification-heading">Ethan Walker</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">If you need any further assistance, please feel free to contact us. We are always happy to assist you. Regards, Ethan</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0601274412.jpg" alt="Sophia Evans">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">Sep 18</small>
+                                                    <h5 class="notification-heading">Sophia Evans</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Teddy, Please call me when you finish your work! I have many things to discuss. Don't forget call me !! Sophia</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0777931269.jpg" alt="Harry Walker">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">Sep 17</small>
+                                                    <h5 class="notification-heading">Harry Walker</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Thank you for your message. I am currently out of the office, with no email access. I will be returning on 20 Jun.</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0872116906.jpg" alt="Emma Lewis">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">Sep 15</small>
+                                                    <h5 class="notification-heading">Emma Lewis</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Teddy, Please find the attached report. I am truly sorry and very embarrassed about not finishing the report by the deadline.</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0980726243.jpg" alt="Eliot Morgan">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">Sep 15</small>
+                                                    <h5 class="notification-heading">Eliot Morgan</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Dear Teddy, Please accept this message as notification that I was unable to work yesterday, due to personal illness.m</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-footer">
+                                    <a class="dropdown-btn" href="#">See All</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                <span class="icon-with-child hidden-xs">
+                                    <span class="icon icon-bell-o icon-lg"></span>
+                                    <span class="badge badge-danger badge-above right">@*7*@</span>
+                                </span>
+                                <span class="visible-xs-block">
+                                    <span class="icon icon-bell icon-lg icon-fw"></span>
+                                    <span class="badge badge-danger pull-right">@*7*@</span>
+                                    Notifications
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                                <div class="dropdown-header">
+                                    <a class="dropdown-link" href="#">Mark all as read</a>
+                                    <h5 class="dropdown-heading">Recent Notifications</h5>
+                                </div>
+                                <div class="dropdown-body">
+                                    <div class="list-group list-group-divided custom-scrollbar">
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <span class="icon icon-exclamation-triangle bg-warning rounded sq-40"></span>
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">35 min</small>
+                                                    <h5 class="notification-heading">Update Status</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Failed to get available update data. To ensure the proper functioning of your application, update now.</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <span class="icon icon-flag bg-success rounded sq-40"></span>
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">43 min</small>
+                                                    <h5 class="notification-heading">Account Contact Change</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">A contact detail associated with your account teddy.wilson, has recently changed.</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <span class="icon icon-exclamation-triangle bg-warning rounded sq-40"></span>
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">1 hr</small>
+                                                    <h5 class="notification-heading">Failed Login Warning</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">There was a failed login attempt from "192.98.19.164" into the account teddy.wilson.</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0310728269.jpg" alt="Daniel Taylor">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">4 hr</small>
+                                                    <h5 class="notification-heading">Daniel Taylor</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Like your post: "Everything you know about Bootstrap is wrong".</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0872116906.jpg" alt="Emma Lewis">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">8 hr</small>
+                                                    <h5 class="notification-heading">Emma Lewis</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Like your post: "Everything you know about Bootstrap is wrong".</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0601274412.jpg" alt="Sophia Evans">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">8 hr</small>
+                                                    <h5 class="notification-heading">Sophia Evans</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Like your post: "Everything you know about Bootstrap is wrong".</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="list-group-item" href="#">
+                                            <div class="notification">
+                                                <div class="notification-media">
+                                                    <img class="rounded" width="40" height="40" src="img/0180441436.jpg" alt="Teddy Wilson">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <small class="notification-timestamp">9 hr</small>
+                                                    <h5 class="notification-heading">Teddy Wilson</h5>
+                                                    <p class="notification-text">
+                                                        <small class="truncate">Published a new post: "Everything you know about Bootstrap is wrong".</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-footer">
+                                    <a class="dropdown-btn" href="#">See All</a>
+                                </div>
+                            </div>
+                        </li>
+
+
+
+                        <li class="dropdown hidden-xs">
+                            <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
+
+                                @*<img class="rounded1" width="36" height="36" src="" alt=""> James Moore*@
+
+                                <span class="icon icon-user icon-lg" style="padding: 12px 6px 12px 0;"></span> James Moore
+                                <span class="caret"></span>
+
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a asp-controller="Profile" asp-action="Index" aria-haspopup="true">
+                                        <span class="badge badge-success"></span>
+                                        <span class="sidenav-icon icon icon-user-secret"></span>
+                                        <span class="sidenav-label">Profile</span>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Login" aria-haspopup="true">
+                                        <span class="badge badge-success"></span>
+                                        <span class="sidenav-icon icon icon-sign-out"></span>
+                                        <span class="sidenav-label">Sign out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <style>
+                            .btn-signout {
+                                border: none;
+                                height: 50px; 
+                                background-color: #1b1b1b; 
+                            }
+                            .btn-signout:hover {
+                                color: red;
+                            }
+                        </style>
+
+                        <li>
+                            <form asp-controller="Account" asp-action="LogOff">
+                                <button type="submit" class="btn btn-signout">
+                                    <span class="icon icon-power-off icon-lg icon-fw"></span>
+                                </button>
+                            </form>
+                        </li>
+
+                        @*works
+                        <li>
+                            <a href="#" role="button" aria-haspopup="true">
+                                <span class="icon-with-child hidden-xs">
+                                    <span class="icon icon-bell-o icon-lg"></span>
+                                </span>
+                            </a>
+                        </li>*@
+
+
+                        <li class="visible-xs-block">
+                            <a href="profile.html">
+                                <span class="icon icon-user icon-lg icon-fw"></span>
+                                Profile
+                            </a>
+                        </li>
+
+                        <li class="visible-xs-block">
+                            <a href="login-1.html">
+                                <span class="icon icon-power-off icon-lg icon-fw"></span>
+                                Sign out
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="layout-main">
+        <div class="layout-sidebar">
+            <div class="layout-sidebar-backdrop"></div>
+            <div class="layout-sidebar-body">
+                <nav id="sidenav" class="sidenav-collapse collapse">
+                    <ul class="sidenav">
+
+                        <li class="sidenav-search hidden-md hidden-lg">
+                            <form class="sidenav-form" action="/">
+                                <div class="form-group form-group-sm">
+                                    <div class="input-with-icon">
+                                        <input class="form-control" type="text" placeholder="Search…">
+                                        <span class="icon icon-search input-icon"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        
+                        <li class="sidenav-heading">MAIN MENU</li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Home" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-dashboard"></span>
+                                <span class="sidenav-label">Dashboards</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Search" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-photo"></span>
+                                <span class="sidenav-label">Search Photos</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Upload" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-upload"></span>
+                                <span class="sidenav-label">Upload Photos</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Tag" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-tag"></span>
+                                <span class="sidenav-label">Tag Photos</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Reports" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-photo"></span>
+                                <span class="sidenav-label">Generate Report</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-heading">APPLICATION</li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Settings" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-gear"></span>
+                                <span class="sidenav-label">Settings</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-heading">ADMINISTRATION</li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Users" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-users"></span>
+                                <span class="sidenav-label">Manage Users</span>
+                            </a>
+                        </li>
+
+                        <li class="sidenav-item">
+                            <a asp-controller="Roles" asp-action="Index" aria-haspopup="true">
+                                <span class="badge badge-success"></span>
+                                <span class="sidenav-icon icon icon-user-plus"></span>
+                                <span class="sidenav-label">Manage Roles</span>
+                            </a>
+                        </li>
+
+                        @*<li class="sidenav-item has-subnav">
+                            <a href="dashboard-1.html" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-home"></span>
+                                <span class="sidenav-label">Dashboards</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Dashboards</li>
+                                <li><a href="dashboard-1.html">Dashboard 1</a></li>
+                                <li><a href="dashboard-2.html">Dashboard 2</a></li>
+                                <li><a href="dashboard-3.html">Dashboard 3</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="sidenav-item">
+                            <a href="widgets.html">
+                                <span class="badge badge-success">26</span>
+                                <span class="sidenav-icon icon icon-th"></span>
+                                <span class="sidenav-label">Widgets</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="page-layouts.html">
+                                <span class="sidenav-icon icon icon-columns"></span>
+                                <span class="sidenav-label">Page layouts</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-heading">Components</li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-briefcase"></span>
+                                <span class="sidenav-label">UI Elements</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">UI Elements</li>
+                                <li><a href="arrows.html">Arrows</a></li>
+                                <li><a href="badges.html">Badges</a></li>
+                                <li><a href="buttons.html">Buttons</a></li>
+                                <li><a href="cards.html">Cards</a></li>
+                                <li><a href="dividers.html">Dividers</a></li>
+                                <li><a href="files.html">Files</a></li>
+                                <li><a href="flags.html">Flags</a></li>
+                                <li><a href="grid-system.html">Grid system</a></li>
+                                <li><a href="icons.html">Icons</a></li>
+                                <li><a href="labels.html">Labels</a></li>
+                                <li><a href="lists.html">Lists</a></li>
+                                <li><a href="pricing-cards.html">Pricing cards</a></li>
+                                <li><a href="progress-bars.html">Progress bars</a></li>
+                                <li><a href="spinners.html">Spinners</a></li>
+                                <li><a href="toastr.html">Toastr</a></li>
+                                <li><a href="typography.html">Typography</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-edit"></span>
+                                <span class="sidenav-label">Forms</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Forms</li>
+                                <li><a href="cropper.html">Cropper</a></li>
+                                <li><a href="form-controls.html">Form controls</a></li>
+                                <li><a href="form-layouts.html">Form layouts</a></li>
+                                <li><a href="form-validation.html">Form validation</a></li>
+                                <li><a href="form-wizard.html">Form wizard</a></li>
+                                <li><a href="input-mask.html">Input mask</a></li>
+                                <li><a href="md-form-controls.html">Material form controls</a></li>
+                                <li><a href="md-form-validation.html">Material form validation</a></li>
+                                <li><a href="pickers.html">Pickers</a></li>
+                                <li><a href="select2.html">Select2</a></li>
+                                <li><a href="sliders.html">Sliders</a></li>
+                                <li><a href="toggles.html">Toggles</a></li>
+                                <li><a href="uploader.html">Uploader</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-list"></span>
+                                <span class="sidenav-label">Tables</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Tables</li>
+                                <li><a href="static-tables.html">Static tables</a></li>
+                                <li><a href="dynamic-tables.html">Dynamic tables</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="charts.html">
+                                <span class="sidenav-icon icon icon-pie-chart"></span>
+                                <span class="sidenav-label">Charts</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-map-marker"></span>
+                                <span class="sidenav-label">Maps</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Maps</li>
+                                <li><a href="vector-maps.html">Vector maps</a></li>
+                                <li><a href="google-maps.html">Google maps</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-heading">Pages</li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-lock"></span>
+                                <span class="sidenav-label">Authentication</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Authentication</li>
+                                <li><a href="signup-1.html" target="_blank">Sign up 1</a></li>
+                                <li><a href="signup-2.html" target="_blank">Sign up 2</a></li>
+                                <li><a href="signup-3.html" target="_blank">Sign up 3</a></li>
+                                <li><a href="login-1.html" target="_blank">Login 1</a></li>
+                                <li><a href="login-2.html" target="_blank">Login 2</a></li>
+                                <li><a href="login-3.html" target="_blank">Login 3</a></li>
+                                <li><a href="password-1.html" target="_blank">Reset password 1</a></li>
+                                <li><a href="password-2.html" target="_blank">Reset password 2</a></li>
+                                <li><a href="password-3.html" target="_blank">Reset password 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="contacts.html">
+                                <span class="sidenav-icon icon icon-users"></span>
+                                <span class="sidenav-label">Contacts</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-envelope"></span>
+                                <span class="sidenav-label">Mailbox</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Mailbox</li>
+                                <li><a href="mail.html">Mail 1</a></li>
+                                <li><a href="inbox.html">Mail 2</a></li>
+                                <li><a href="compose.html">Compose</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="messenger.html">
+                                <span class="sidenav-icon icon icon-comments"></span>
+                                <span class="sidenav-label">Messenger</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="profile.html">
+                                <span class="sidenav-icon icon icon-user"></span>
+                                <span class="sidenav-label">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="drive.html">
+                                <span class="sidenav-icon icon icon-cloud-upload"></span>
+                                <span class="sidenav-label">Drive</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item">
+                            <a href="landing-page.html" target="_blank">
+                                <span class="sidenav-badge badge badge-danger">Hot</span>
+                                <span class="sidenav-icon icon icon-star"></span>
+                                <span class="sidenav-label">Landing Page</span>
+                            </a>
+                        </li>
+                        <li class="sidenav-item has-subnav">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-shopping-cart"></span>
+                                <span class="sidenav-label">E-commerce</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">E-commerce</li>
+                                <li><a href="store.html">Store</a></li>
+                                <li><a href="shopping-cart.html">Shopping cart</a></li>
+                                <li><a href="product.html">Product</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidenav-item has-subnav active">
+                            <a href="#" aria-haspopup="true">
+                                <span class="sidenav-icon icon icon-files-o"></span>
+                                <span class="sidenav-label">Other pages</span>
+                            </a>
+                            <ul class="sidenav-subnav collapse">
+                                <li class="sidenav-subheading">Other pages</li>
+                                <li class="active"><a href="blank-page.html">Blank Page</a></li>
+                                <li><a href="404.html" target="_blank">404</a></li>
+                                <li><a href="500.html" target="_blank">500</a></li>
+                                <li><a href="invoice.html">Invoice</a></li>
+                                <li><a href="us-elections.html">US elections (timeline)</a></li>
+                            </ul>
+                        </li>*@
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="layout-content">
+            <div class="layout-content-body">
+                
+                @RenderBody()                        
+                 
+            </div>
+        </div>
+        <div class="layout-footer">
+            <div class="layout-footer-body">
+                <small class="version">Version 1.0.0</small>
+                <small class="copyright">&copy; Copyright @DateTime.Now.Year. BCPAO Field Operations Photo Manager. All rights reserved.</small>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/vendor.min.js"></script>
+    <script src="~/js/elephant.min.js"></script>
+    <script src="~/js/application.min.js"></script>
+    <script src="~/js/demo.min.js"></script>
+    <script src="~/lib/icheck/icheck.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js"></script>
+    <script>
+       ////$.sessionTimeout({
+       ////   keepAliveUrl: 'keep-alive.html',
+       ////   logoutUrl: 'Account/Login',
+       ////   redirUrl: 'Account/Lockout',
+       ////   warnAfter: 600000,
+       ////   redirAfter: 700000,
+       ////   countdownMessage: 'Redirecting in {timer} seconds.'
+       ////});
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

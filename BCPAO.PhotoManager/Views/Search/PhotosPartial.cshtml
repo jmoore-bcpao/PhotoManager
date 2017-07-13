@@ -1,0 +1,10 @@
+@model IEnumerable<PhotoViewModel>
+
+
+@if (Model != null)
+{
+    @foreach (var photo in Model)
+    {
+        <img class="photo-hover" src="@photo.ImageString" alt="" height="234" width="314" />
+    }
+}

@@ -1,0 +1,62 @@
+/*! Custom styles for this template */
+@import "bootstrap/variables";
+@import "custom/variables";
+@import "variables";
+
+.election {
+  max-width: 1200px;
+}
+
+.election-title {
+  font-size: $font-size-h3;
+  font-weight: 300;
+  text-align: center;
+  transition: font-size 0.3s;
+}
+
+.election-description {
+  text-align: center;
+}
+
+.election-map {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.election-candidate {
+  padding: 15px;
+}
+
+.election-democratic {
+  color: #2980b9;
+}
+
+.election-republican {
+  color: #e74c3c;
+}
+
+.timeline-media {
+  border-radius: $border-radius-large;
+  height: 48px;
+  margin-top: 20px;
+  transition-duration: 0.3s;
+  transition-property: height, width;
+  width: 48px;
+}
+
+// Point at which the navbar becomes uncollapsed.
+@media (min-width: $grid-float-breakpoint) {
+  .election-title {
+    font-size: $font-size-h1;
+  }
+
+  .election-description {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .timeline-media {
+    height: 64px;
+    width: 64px;
+  }
+}

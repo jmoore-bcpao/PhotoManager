@@ -1,0 +1,65 @@
+@model IEnumerable<SettingViewModel>
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+@section NavBarText {
+    <text><a asp-controller="Home" asp-action="Index">Dashboard</a> > <a>Settings</a></text>
+}
+
+@section Breadcrumbs {
+    @*<ol class="breadcrumb">
+        <li><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="active ng-binding"><a href="javascript:;">Settings</a></li>
+    </ol>*@
+}
+
+<div class="title-bar">
+    <h1 class="title-bar-title">
+        <span class="d-ib">Settings</span>
+        <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+                <span class="sr-only">Add to shortcut list</span>
+            </a>
+        </span>
+    </h1>
+</div>
+
+<div class="panel mb25">
+    <div class="panel-heading">
+        <span>Settings</span>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped mb0">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.DisplayName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Value)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Value)</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="Settings" asp-route-name="@item.Name" data-toggle=tooltip data-placement=top title="Edit"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("[data-toggle=tooltip]").tooltip();
+    </script>
+}
+

@@ -1,0 +1,160 @@
+﻿@model IEnumerable<PhotoViewModel>
+
+
+@*@model UserViewModel
+
+@{
+    ViewData["Title"] = "Search Photos";
+    var Roles = ViewBag.Roles as List<RoleViewModel>;
+}*@
+
+@section styles {
+    <link href="~/lib/checkbo/src/0.1.4/css/checkBo.css" rel="stylesheet" />
+}
+@section NavBarText {
+    <text>Dashboard > Search Photos</text>
+}
+
+<div class="title-bar">
+    <h1 class="title-bar-title">
+        <span class="d-ib">Search Photos</span>
+        <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+                <span class="sr-only">Add to shortcut list</span>
+            </a>
+        </span>
+    </h1>
+</div>
+
+@*@foreach (var photo in Model)
+{
+    <img class="photo-hover" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(photo.ImageData))" alt="" height="234" width="314" />
+
+    @Html.Image(item.ImageData)
+}*@
+
+
+
+
+
+@*<div class="panel mb25">
+    <div class="panel-heading">
+        <span>Photos</span>
+        <span class="pull-right">
+            <a asp-action="Create">Upload Photos</a>
+        </span>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            @*<table class="table table-bordered table-striped mb0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" data-toggle=tooltip data-placement=top title="Edit"><i class="fa fa-edit"></i></a>
+                                &nbsp;
+                                <a asp-action="Details" asp-route-id="@item.Id" data-toggle=tooltip data-placement=top title="Details"><i class="fa fa-eye"></i></a>
+                                &nbsp;
+                                <a asp-action="ChangePassword" asp-route-id="@item.Id" data-toggle=tooltip data-placement=top title="Change Password"><i class="fa fa-key"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>*@
+
+
+<div class="panel mb25">
+    <div class="panel-body">
+        <div class="row no-margin">
+            <div class="col-lg-12">
+
+                <form class="form-horizontal bordered-group" role="form">
+                    <div class="form-group">
+                        <label for="PropertyId" class="col-sm-2 control-label">Property ID</label>
+                        <div class="col-sm-10">
+                            <input id="PropertyId" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="UploadedBy" class="col-sm-2 control-label">Uploaded By</label>
+                        <div class="col-sm-10">
+                            <input id="UploadedBy" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="UploadedDate" class="col-sm-2 control-label">Date Uploaded</label>
+                        <span class="col-sm-5">
+                            <input id="UploadedDateFrom" class="form-control" />
+                        </span>
+                        <span class="col-sm-5">
+                            <input id="UploadedDateTo" class="form-control" />
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ArchivedDate" class="col-sm-2 control-label">Date Archived</label>
+                        <span class="col-sm-5">
+                            <input id="ArchivedDateFrom" class="form-control" />
+                        </span>
+                        <span class="col-sm-5">
+                            <input id="ArchivedDateTo" class="form-control" />
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Status" class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-10">
+                            <input id="Status" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Status" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input id="MasterPhoto" class="checkbox-inline" type="checkbox" /> Master Photo
+                            <input id="FrontPhoto" class="checkbox-inline" type="checkbox" /> Front Photo
+                            <input id="PublicPhoto" class="checkbox-inline" type="checkbox" /> Public Photo                           
+                            <input id="Active" class="checkbox-inline" type="checkbox" /> Archived Photo
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">Search Photos</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="border: 0px solid #fff; height: 200px;">
+
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/checkbo/src/0.1.4/js/checkBo.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.checkbo').checkBo();
+        });
+    </script>
+}

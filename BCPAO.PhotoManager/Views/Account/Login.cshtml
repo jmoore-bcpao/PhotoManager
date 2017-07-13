@@ -1,0 +1,63 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<BCPAO.PhotoManager.Data.User> SignInManager
+
+@{
+   ViewData["Title"] = "BCPAO: Login";
+   Layout = "_AccountLayout";
+}
+
+<div class="top-content">
+   <div class="inner-bg">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text">
+               <h1>
+                  @*<i class="fa fa-lock" aria-hidden="true"></i> <strong>BCPAO</strong> Secure Login*@
+               </h1>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top: 1px;">
+               <div class="form-top">
+                  <div class="form-top-left">
+                     <h3>Login to Photo Manager</h3>
+                     <p>Enter your username and password to log on.</p>
+                  </div>
+                  <div class="form-top-right">
+                     <i class="fa fa-key"></i>
+                  </div>
+               </div>
+               <div class="form-bottom">
+                  <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" role="form" method="post" class="login-form">
+                     <div asp-validation-summary="All"></div>
+                     <div class="form-group">
+                        <label asp-for="Email" class="sr-only">Username or Email Address</label>
+                        <input type="text" asp-for="Email" class="form-username form-control" placeholder="Username or Email Address..." id="form-username" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                     </div>
+                     <div class="form-group">
+                        <label asp-for="Password" class="sr-only">Password</label>
+                        <input type="password" asp-for="Password" class="form-password form-control" placeholder="Password..." id="form-password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                     </div>
+                     <button type="submit" class="btn">Login</button>
+                     <div style="font-size: 0.7em; margin-top: 5px; text-align: right;">
+                        <a asp-action="Register">REGISTER</a> | <a asp-action="ForgotPassword">RECOVER PASSWORD</a>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div style="font-size: 1em; margin-top: 10px;">
+         Brevard County Florida Property Appraiser
+      </div>
+   </div>
+</div>
+
+@section Scripts {
+   @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

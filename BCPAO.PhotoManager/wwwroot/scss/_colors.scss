@@ -1,0 +1,89 @@
+// Colors
+$default-palette: (
+  "background": $btn-default-bg,
+  "border"    : $btn-default-border,
+  "color"     : $btn-default-color
+);
+
+$primary-palette: (
+  "background": $btn-primary-bg,
+  "border"    : $btn-primary-border,
+  "color"     : $btn-primary-color
+);
+
+$success-palette: (
+  "background": $btn-success-bg,
+  "border"    : $btn-success-border,
+  "color"     : $btn-success-color
+);
+
+$info-palette: (
+  "background": $btn-info-bg,
+  "border"    : $btn-info-border,
+  "color"     : $btn-info-color
+);
+
+$warning-palette: (
+  "background": $btn-warning-bg,
+  "border"    : $btn-warning-border,
+  "color"     : $btn-warning-color
+);
+
+$danger-palette: (
+  "background": $btn-danger-bg,
+  "border"    : $btn-danger-border,
+  "color"     : $btn-danger-color
+);
+
+// Inverse
+$default-inverse-palette: (
+  "background": $btn-default-color,
+  "border"    : $btn-default-color,
+  "color"     : $btn-default-bg
+);
+
+$primary-inverse-palette: (
+  "background": $btn-primary-color,
+  "border"    : $btn-primary-color,
+  "color"     : $btn-primary-bg
+);
+
+$success-inverse-palette: (
+  "background": $btn-success-color,
+  "border"    : $btn-success-color,
+  "color"     : $btn-success-bg
+);
+
+$info-inverse-palette: (
+  "background": $btn-info-color,
+  "border"    : $btn-info-color,
+  "color"     : $btn-info-bg
+);
+
+$warning-inverse-palette: (
+  "background": $btn-warning-color,
+  "border"    : $btn-warning-color,
+  "color"     : $btn-warning-bg
+);
+
+$danger-inverse-palette: (
+  "background": $btn-danger-color,
+  "border"    : $btn-danger-color,
+  "color"     : $btn-danger-bg
+);
+
+// All colors registered below can be accessed using the .bg-{modifier}
+$custom-colors: (
+  "default"         : $default-palette,
+  "primary"         : $primary-palette,
+  "success"         : $success-palette,
+  "info"            : $info-palette,
+  "warning"         : $warning-palette,
+  "danger"          : $danger-palette,
+  "default-inverse" : $default-inverse-palette,
+  "primary-inverse" : $primary-inverse-palette,
+  "success-inverse" : $success-inverse-palette,
+  "info-inverse"    : $info-inverse-palette,
+  "warning-inverse" : $warning-inverse-palette,
+  "danger-inverse"  : $danger-inverse-palette
+);

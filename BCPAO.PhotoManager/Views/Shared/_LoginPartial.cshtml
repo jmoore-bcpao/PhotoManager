@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BCPAO.PhotoManager.Models
+
+@inject SignInManager<BCPAO.PhotoManager.Data.User> SignInManager
+@inject UserManager<BCPAO.PhotoManager.Data.User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul>
+            <li>
+                <button type="submit" class="icon icon-sign-out">
+                    <span class="sidenav-icon icon icon-user-secret"></span>
+                </button>
+            </li>
+        </ul>
+    </form>
+}

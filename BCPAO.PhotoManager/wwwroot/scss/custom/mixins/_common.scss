@@ -1,0 +1,32 @@
+// Common mixins
+@mixin before-after {
+  &:before,
+    &:after {
+    @content
+  }
+}
+
+@mixin before {
+  &:before {
+    @content
+  }
+}
+
+@mixin after {
+    &:after {
+    @content
+  }
+}
+
+@mixin hover-focus {
+  &:hover,
+    &:focus {
+    @content
+  }
+}
+
+@mixin focus {
+    &:focus {
+    @content
+  }
+}

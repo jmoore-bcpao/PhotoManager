@@ -1,0 +1,150 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@section NavBarText {
+    <text>Dashboard</text>
+}
+
+<style>
+    .widget {
+      position: relative;
+      margin-bottom: 20px;
+      display: table;
+      width: 100%;
+      padding: 15px;
+      -webkit-border-radius: 1px;
+      -moz-border-radius: 1px;
+      border-radius: 1px;
+    }
+    .bg-white {
+      color: #616161;
+      background-color:rgba(255, 255, 255, 0.7); 
+    }
+    a.bg-white:hover {
+      background-color: #e6e6e6;
+    }
+    /*.bg-white {
+        background-color:rgba(0, 0, 0, 0.2); 
+        padding: 20px;
+        margin-bottom: 5px;
+    }*/
+</style>
+
+<div class="title-bar">
+    <h1 class="title-bar-title">
+        <span class="d-ib">Dashboard</span>
+        <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+                <span class="sr-only">Add to shortcut list</span>
+            </a>
+        </span>
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-blue pull-left fa fa-users"></div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["activePhotosToday"]</span>
+                <span class="widget-subtitle">Active Photos Today</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-blue pull-left fa fa-users"></div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["archivedPhotosToday"]</span>
+                <span class="widget-subtitle">Archived Photos Today</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-amber pull-left fa fa-calendar">
+            </div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["activePhotosWeek"]</span>
+                <span class="widget-subtitle">Active Photos This Week</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-amber pull-left fa fa-calendar"></div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["archivedPhotosWeek"]</span>
+                <span class="widget-subtitle">Archived Photos This Week</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-success pull-left fa fa-table">
+            </div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["activePhotosMonth"]</span>
+                <span class="widget-subtitle">Active Photos This Month</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-success pull-left fa fa-table">
+            </div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["archivedPhotosMonth"]</span>
+                <span class="widget-subtitle">Archived Photos This Month</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-danger pull-left fa fa-table">
+            </div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["activePhotosYear"]</span>
+                <span class="widget-subtitle">Active Photos This Year</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-danger pull-left fa fa-table">
+            </div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["archivedPhotosYear"]</span>
+                <span class="widget-subtitle">Archived Photos This Year</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget bg-white" style="border: 1px solid #ccc;">
+            <div class="widget-icon bg-orange pull-left fa fa-table"></div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["activePhotosTotal"]</span>
+                <span class="widget-subtitle">Total Active Photos</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget bg-white" style="border: 1px solid #ccc;">
+            <div class="widget-icon bg-orange pull-left fa fa-table"></div>
+            <div class="overflow-hidden">
+                <span class="widget-title">@ViewData["archivedPhotosTotal"]</span>
+                <span class="widget-subtitle">Total Archived Photos</span>
+            </div>
+        </div>
+    </div>
+</div>
+

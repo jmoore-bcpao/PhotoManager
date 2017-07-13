@@ -1,0 +1,134 @@
+﻿@model IEnumerable<PhotoViewModel>
+@inject SearchFilterViewModel Search
+
+@using BCPAO.PhotoManager.Helpers
+
+<div class="title-bar">
+    <h1 class="title-bar-title">
+        <span class="d-ib">Search Photos</span>
+        <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+                <span class="sr-only">Add to shortcut list</span>
+            </a>
+        </span>
+    </h1>
+</div>
+
+<div class="panel mb25">
+    <div class="panel-body">
+        <div class="row no-margin">
+            <div class="col-lg-12">
+                <form asp-controller="Search" asp-action="Index" class="form-horizontal bordered-group" role="form">
+                    @*<div class="form-group">
+                        <label for="PhotoId" class="col-sm-2 control-label">Photo ID</label>
+                        <div class="col-sm-10">
+                            <input asp-for="@Search.PhotoId" class="form-control" placeholder="Photo ID" />
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label for="PropertyId" class="col-sm-2 control-label">Property ID</label>
+                        <div class="col-sm-10">
+                            <input asp-for="@Search.PropertyId" class="form-control" placeholder="Property ID" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="UploadedBy" class="col-sm-2 control-label">Uploaded By</label>
+                        <div class="col-sm-10">
+                            <input asp-for="@Search.UploadedBy" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="UploadedDate" class="col-sm-2 control-label">Date Uploaded</label>
+                        <span class="col-sm-5">
+                            <input asp-for="@Search.UploadedDateFrom" class="form-control" />
+                        </span>
+                        <span class="col-sm-5">
+                            <input asp-for="@Search.UploadedDateTo" class="form-control" />
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ArchivedDate" class="col-sm-2 control-label">Date Archived</label>
+                        <span class="col-sm-5">
+                            <input asp-for="@Search.ArchivedDateFrom" class="form-control" />
+                        </span>
+                        <span class="col-sm-5">
+                            <input asp-for="@Search.ArchivedDateTo" class="form-control" />
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Status" class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-10">
+                            <input asp-for="@Search.Status" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Status" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="@Search.MasterPhoto" class="checkbox-inline" type="checkbox" /> Master Photo
+                            <input asp-for="@Search.FrontPhoto" class="checkbox-inline" type="checkbox" /> Front Photo
+                            <input asp-for="@Search.PublicPhoto" class="checkbox-inline" type="checkbox" /> Public Photo
+                            <input asp-for="@Search.Active" class="checkbox-inline" type="checkbox" /> Archived Photo
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Search Photos" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .image-container {
+        margin-left: -5px;
+        margin: auto 0;
+    }
+    .image-container img {
+        margin: 5px;
+        /*background: rgba(0, 0, 0, 0.7);*/
+        opacity: 0.2;
+    }
+        .image-container img:hover {
+            border: 1px solid #000;
+            opacity: 1.0;
+            color: red;
+        }
+
+    .photo {
+        display: inline-block;
+    }
+    .photo-text {
+        color: white;
+        margin-left: 5px;
+    }
+</style>
+
+<div>
+    @*@await Html.PartialAsync("PhotosPartial")*@
+    @if (Model != null)
+    {
+        @foreach (var photo in Model)
+        {
+            <img class="photo-hover" src="@photo.ImageString" alt="" height="234" width="314" />
+        }
+    }
+</div>
+
+
+
+
+@section styles {
+    <link href="~/lib/checkbo/src/0.1.4/css/checkBo.css" rel="stylesheet" />
+}
+@section NavBarText {
+    <text>Dashboard > Search Photos</text>
+}
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/checkbo/src/0.1.4/js/checkBo.min.js"></script>
+    <script>
+        $(function () {
+            $('.checkbo').checkBo();
+        });
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCPAO.PhotoManager", "BCPAO.PhotoManager\BCPAO.PhotoManager.csproj", "{6389F67C-ECCD-4309-92BE-9177BBAF188F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jQueryFileUpload", "jQueryFileUpload\jQueryFileUpload.csproj", "{17DC298B-1DCA-43BD-A06D-5470DEA9B20A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6389F67C-ECCD-4309-92BE-9177BBAF188F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6389F67C-ECCD-4309-92BE-9177BBAF188F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6389F67C-ECCD-4309-92BE-9177BBAF188F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6389F67C-ECCD-4309-92BE-9177BBAF188F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17DC298B-1DCA-43BD-A06D-5470DEA9B20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DC298B-1DCA-43BD-A06D-5470DEA9B20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17DC298B-1DCA-43BD-A06D-5470DEA9B20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17DC298B-1DCA-43BD-A06D-5470DEA9B20A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
