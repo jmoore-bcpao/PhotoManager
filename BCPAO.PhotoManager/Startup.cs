@@ -62,7 +62,7 @@ namespace BCPAO.PhotoManager
 
 
             services.AddTransient<SearchFilterViewModel, SearchFilterViewModel>();
-
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
 
             // Needed for NLog.Web 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

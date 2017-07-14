@@ -6,7 +6,8 @@ namespace BCPAO.PhotoManager.Data
 { 
     public interface IPhotoRepository
     {
-        void AddPhoto(PhotoViewModel model);
+        void Add(PhotoViewModel model);
+        void Remove(PhotoViewModel model);
 
         //IEnumerable<PhotoViewModel> AddPhoto(FileResult fileResult);
         //IEnumerable<PhotoViewModel> GetAllPhotos(int id);

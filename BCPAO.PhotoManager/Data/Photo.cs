@@ -13,7 +13,7 @@ namespace BCPAO.PhotoManager.Data
         public decimal ImageSize { get; set; }
         public DateTime? DateTaken { get; set; }
         public DateTime UploadedDate { get; set; }
-        public User UploadedBy { get; set; }
+        public string UploadedBy { get; set; }
         public bool? MasterPhoto { get; set; }
         public bool? FrontPhoto { get; set; }
         public bool? PublicPhoto { get; set; }

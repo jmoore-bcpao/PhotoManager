@@ -1,8 +1,9 @@
 ﻿using BCPAO.PhotoManager.Models;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using System.Threading.Tasks;
 
 namespace BCPAO.PhotoManager.Data
 {
@@ -10,20 +11,21 @@ namespace BCPAO.PhotoManager.Data
     {
         private readonly DatabaseContext _context;
 
-        private readonly ILogger _logger;
+        //private readonly ILogger _logger;
 
-        public PhotoRepository(DatabaseContext context, ILoggerFactory loggerFactory)
+        public PhotoRepository(DatabaseContext context)
         {
             _context = context;
-            _logger = loggerFactory.CreateLogger("PhotoRepository");
         }
 
-        //public IEnumerable<PhotoViewModel> AddPhoto(FileResult fileResult)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<IEnumerable<Photo>> GetPhotos(int propertyId)
+        {
+            return await _context.Photos
+              .Where(p => p.PropertyId == propertyId)
+              .ToListAsync();
+        }
 
-        public void AddPhoto(PhotoViewModel model)
+        public void Add(PhotoViewModel model)
         {
             try
             {
@@ -57,31 +59,9 @@ namespace BCPAO.PhotoManager.Data
            // return GetNewFiles(fileNames);
         }
 
-        //public IEnumerable<PhotoViewModel> GetAllPhotos(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public FileDescription GetFileDescription(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //private IEnumerable<PhotoViewModel> GetNewFiles(List<string> fileNames)
-        //{
-        //    //var x = _context.Photos.Where(r => fileNames.Contains(r.ImageName));
-        //    //return x.Select(t => new PhotoViewModel { PhotoId = t.PhotoId });
-        //}
-
-        //public IEnumerable<FileDescriptionShort> GetAllFiles()
-        //{
-        //    return _context.FileDescriptions.Select(
-        //            t => new FileDescriptionShort { Name = t.FileName, Id = t.Id, Description = t.Description });
-        //}
-
-        //public FileDescription GetFileDescription(int id)
-        //{
-        //    return _context.FileDescriptions.Single(t => t.Id == id);
-        //}
+        public void Remove(PhotoViewModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
