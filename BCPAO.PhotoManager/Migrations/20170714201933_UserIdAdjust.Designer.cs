@@ -9,9 +9,10 @@ using BCPAO.PhotoManager.Models.Enums;
 namespace BCPAO.PhotoManager.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170714201933_UserIdAdjust")]
+    partial class UserIdAdjust
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

@@ -9,9 +9,10 @@ using BCPAO.PhotoManager.Models.Enums;
 namespace BCPAO.PhotoManager.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170714200938_AddUserId")]
+    partial class AddUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -58,8 +59,7 @@ namespace BCPAO.PhotoManager.Migrations
 
                     b.Property<bool?>("FrontPhoto");
 
-                    b.Property<byte[]>("ImageData")
-                        .IsRequired();
+                    b.Property<byte[]>("ImageData");
 
                     b.Property<string>("ImageName")
                         .HasMaxLength(20);
@@ -80,7 +80,7 @@ namespace BCPAO.PhotoManager.Migrations
 
                     b.Property<DateTime>("UploadedDate");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("PhotoId");
 

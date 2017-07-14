@@ -1,5 +1,6 @@
 using BCPAO.PhotoManager.Data;
 using BCPAO.PhotoManager.Filters;
+using BCPAO.PhotoManager.Helpers;
 using BCPAO.PhotoManager.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -64,21 +65,22 @@ namespace BCPAO.PhotoManager.Controllers
 
                         using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
                         {
-                            using (var memoryStream = new MemoryStream())
+                            using (var ms = new MemoryStream())
                             {
-                                await file.CopyToAsync(memoryStream);
+                                await file.CopyToAsync(ms);
 
                                 var photo = new PhotoViewModel
                                 {
-                                    PropertyId = 1234567,
+                                    PropertyId = 0,
                                     BuildingId = 1,
                                     BuildingSeq = 1,
-                                    ImageData = memoryStream.ToArray(),
+                                    ImageData = ms.ToArray(),
                                     ImageName = fileName,
-                                    ImageSize = file.Length / 1024M,
+                                    ImageSize = ByteSize.FromBytes(file.Length).KiloBytes,
                                     DateTaken = DateTime.UtcNow,
                                     UploadedDate = DateTime.UtcNow,
-                                    UploadedBy = User.Identity.Name.ToLowerInvariant(),
+                                    UserId = Convert.ToInt32(_userManager.GetUserId(User)),
+                                    UploadedBy = _userManager.GetUserName(User),
                                     MasterPhoto = false,
                                     FrontPhoto = false,
                                     PublicPhoto = false,

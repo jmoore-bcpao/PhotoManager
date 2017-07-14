@@ -139,8 +139,9 @@ namespace BCPAO.PhotoManager.Data
                 entity.HasKey(e => e.PhotoId);
                 entity.Property(e => e.PropertyId);
                 entity.Property(e => e.BuildingId);
+                entity.Property(e => e.UserId).IsRequired();
                 entity.Property(e => e.BuildingSeq);
-                entity.Property(e => e.ImageData);
+                entity.Property(e => e.ImageData).IsRequired();
                 entity.Property(e => e.ImageName).HasMaxLength(20);
                 entity.Property(e => e.ImageSize);
                 entity.Property(e => e.DateTaken);

@@ -1,4 +1,5 @@
-﻿using BCPAO.PhotoManager.Models;
+﻿using BCPAO.PhotoManager.Helpers;
+using BCPAO.PhotoManager.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace BCPAO.PhotoManager.Data
                     DateTaken = model.DateTaken,
                     UploadedDate = model.UploadedDate,
                     UploadedBy = model.UploadedBy,
+                    UserId = model.UserId,
                     MasterPhoto = model.MasterPhoto,
                     FrontPhoto = model.FrontPhoto,
                     PublicPhoto = model.PublicPhoto,

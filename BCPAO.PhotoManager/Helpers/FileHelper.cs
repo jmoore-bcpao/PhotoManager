@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Globalization;
 using System.IO;
 
 namespace BCPAO.PhotoManager.Helpers
 {
     public class FileHelper
     {
-        private byte[] ConvertToBytes(IFormFile file)
+        public static byte[] ConvertToBytes(IFormFile file)
         {
             var stream = file.OpenReadStream();
             using (var ms = new MemoryStream())
