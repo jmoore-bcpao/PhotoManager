@@ -2963,6 +2963,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Uploads\" />
     <Folder Include="wwwroot\lib\angular-1.6.4\i18n\ngLocale\" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
 ﻿using BCPAO.PhotoManager.Data;
-using BCPAO.PhotoManager.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -10,13 +10,10 @@ using System.Net.Http.Headers;
 namespace BCPAO.PhotoManager.Controllers
 {
     [Route("api/v1/image")]
-    public class ImageController : Controller
+    public class ImageController : BaseController
     {
-        private DatabaseContext _context;
-
-        public ImageController(DatabaseContext context)
+        public ImageController(UserManager<User> userManager, DatabaseContext context) : base(userManager, context)
         {
-            _context = context;
         }
 
         [Route("")]

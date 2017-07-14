@@ -4,7 +4,6 @@ using BCPAO.PhotoManager.Models.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,13 +11,8 @@ namespace BCPAO.PhotoManager
 {
     public class UsersController : BaseController
     {
-        private readonly ILogger _logger;
-
-        public UsersController(
-            UserManager<User> userManager,
-            ILoggerFactory loggerFactory, DatabaseContext context) : base(userManager, context)
+        public UsersController(UserManager<User> userManager, DatabaseContext context) : base(userManager, context)
         {
-            _logger = loggerFactory.CreateLogger<AccountController>();
         }
         
         public async Task<IActionResult> Index()

@@ -3,6 +3,7 @@ using BCPAO.PhotoManager.Filters;
 using BCPAO.PhotoManager.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
@@ -16,20 +17,32 @@ namespace BCPAO.PhotoManager.Controllers
 {
     [Produces("application/json")]
     [Route("api/FileUpload")]
-    public class FileUploadController : Controller
+    public class FileUploadController : BaseController
     {
         private readonly IPhotoRepository _photoRepository;
         private readonly IOptions<ApplicationConfiguration> _appConfig;
         private readonly IHostingEnvironment _environment;
 
-        public FileUploadController(IPhotoRepository photoRepository, IOptions<ApplicationConfiguration> appConfig, IHostingEnvironment environment)
-        {
-            _photoRepository = photoRepository;
-            _appConfig = appConfig;
-            _environment = environment;
-        }
+        public FileUploadController(
+            IPhotoRepository photoRepository,
+            IOptions<ApplicationConfiguration> appConfig,
+            IHostingEnvironment environment,
+            UserManager<User> userManager, 
+            DatabaseContext context) : base(userManager, context)
+            {
+                _photoRepository = photoRepository;
+                _appConfig = appConfig;
+                _environment = environment;
+            }
 
-        
+        //public FileUploadController(IPhotoRepository photoRepository, IOptions<ApplicationConfiguration> appConfig, IHostingEnvironment environment)
+        //{
+        //    _photoRepository = photoRepository;
+        //    _appConfig = appConfig;
+        //    _environment = environment;
+        //}
+
+
 
         private byte[] ConvertToBytes(IFormFile file)
         {
@@ -57,7 +70,7 @@ namespace BCPAO.PhotoManager.Controllers
             
             if (ModelState.IsValid)
             {
-                var uploads = Path.Combine(@"D:\dev\FieldOperations\src\BCPAO.PhotoManager\", "Uploads");
+                var uploads = Path.Combine(@"C:\dev\BCPAO.PhotoManager\BCPAO.PhotoManager\Uploads\", "Uploads");
 
                 foreach (var file in files)
                 {

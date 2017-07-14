@@ -14,16 +14,7 @@ namespace BCPAO.PhotoManager
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly ILogger _logger;
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-        
-        private DatabaseContext _context;
+        private readonly DatabaseContext _context;
 
         public InstallController(
             DatabaseContext context,
@@ -37,6 +28,14 @@ namespace BCPAO.PhotoManager
             _logger = loggerFactory.CreateLogger<InstallController>();
         }
 
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+        
         public IActionResult Index()
         {
             return View();

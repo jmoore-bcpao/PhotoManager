@@ -19,18 +19,18 @@ namespace BCPAO.PhotoManager
         private readonly ILogger _logger;
 
         public ManageController(
-            DatabaseContext dbContext,
-        UserManager<User> userManager,
-        SignInManager<User> signInManager,
-        IEmailSender emailSender,
-        ISmsSender smsSender,
-        ILoggerFactory loggerFactory):base(userManager, dbContext)
-        {
-            _signInManager = signInManager;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<ManageController>();
-        }
+            DatabaseContext context,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IEmailSender emailSender,
+            ISmsSender smsSender,
+            ILoggerFactory loggerFactory) : base(userManager, context)
+            {
+                _signInManager = signInManager;
+                _emailSender = emailSender;
+                _smsSender = smsSender;
+                _logger = loggerFactory.CreateLogger<ManageController>();
+            }
 
         //
         // GET: /Manage/Index
