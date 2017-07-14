@@ -89,7 +89,7 @@ namespace BCPAO.PhotoManager.Controllers
                                     Active = true
                                 };
 
-                                _photoRepository.AddPhoto(photo);
+                                _photoRepository.Add(photo);
                             }
                         }
 
