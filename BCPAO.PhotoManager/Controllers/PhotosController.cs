@@ -1,7 +1,6 @@
 using BCPAO.PhotoManager.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace BCPAO.PhotoManager.Controllers
 {
@@ -17,8 +16,6 @@ namespace BCPAO.PhotoManager.Controllers
             {
                 return Unauthorized();
             }
-
-
 
             return View();
         }

@@ -1,4 +1,5 @@
 ﻿using BCPAO.PhotoManager.Data;
+using BCPAO.PhotoManager.Filters;
 using BCPAO.PhotoManager.Middleware;
 using BCPAO.PhotoManager.Models;
 using BCPAO.PhotoManager.Services;
@@ -62,6 +63,7 @@ namespace BCPAO.PhotoManager
 
 
             services.AddTransient<SearchFilterViewModel, SearchFilterViewModel>();
+            services.AddTransient<ValidateMimeMultipartContentFilter, ValidateMimeMultipartContentFilter>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
 
             // Needed for NLog.Web 

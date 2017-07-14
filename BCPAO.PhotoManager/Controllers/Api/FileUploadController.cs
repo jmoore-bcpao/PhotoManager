@@ -10,67 +10,51 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BCPAO.PhotoManager.Controllers
 {
     [Produces("application/json")]
     [Route("api/FileUpload")]
-    public class FileUploadController : BaseController
+    public class FileUploadController : Controller
     {
         private readonly IPhotoRepository _photoRepository;
         private readonly IOptions<ApplicationConfiguration> _appConfig;
         private readonly IHostingEnvironment _environment;
+        private readonly UserManager<User> _userManager;
+        private readonly DatabaseContext _context;
 
         public FileUploadController(
+            UserManager<User> userManager, 
+            DatabaseContext context,
             IPhotoRepository photoRepository,
             IOptions<ApplicationConfiguration> appConfig,
-            IHostingEnvironment environment,
-            UserManager<User> userManager, 
-            DatabaseContext context) : base(userManager, context)
+            IHostingEnvironment environment)
             {
+                _userManager = userManager;
+                _context = context;
                 _photoRepository = photoRepository;
                 _appConfig = appConfig;
                 _environment = environment;
             }
 
-        //public FileUploadController(IPhotoRepository photoRepository, IOptions<ApplicationConfiguration> appConfig, IHostingEnvironment environment)
-        //{
-        //    _photoRepository = photoRepository;
-        //    _appConfig = appConfig;
-        //    _environment = environment;
-        //}
-
-
-
-        private byte[] ConvertToBytes(IFormFile file)
-        {
-            Stream stream = file.OpenReadStream();
-            using (var memoryStream = new MemoryStream())
-            {
-                stream.CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
-        }
-      
         [Route("")]
         [HttpGet]
-        public IActionResult UploadFiles()
+        public IActionResult Get()
         {
-           return null;
+           return Ok();
         }
 
         [Route("")]
         [HttpPost]
         [ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
-        public async Task<IActionResult> UploadFiles(ICollection<IFormFile> files)
+        public async Task<IActionResult> Post(ICollection<IFormFile> files)
         {
             var response = new FileResponse();
             
             if (ModelState.IsValid)
             {
-                var uploads = Path.Combine(@"C:\dev\BCPAO.PhotoManager\BCPAO.PhotoManager\Uploads\", "Uploads");
+                var uploads = Path.Combine(@"C:\dev\BCPAO.PhotoManager\BCPAO.PhotoManager\", "Uploads");
 
                 foreach (var file in files)
                 {
@@ -105,8 +89,6 @@ namespace BCPAO.PhotoManager.Controllers
                                 _photoRepository.Add(photo);
                             }
                         }
-
-                        
 
                     }
                 }
