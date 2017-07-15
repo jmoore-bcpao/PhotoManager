@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Globalization;
 using System.IO;
 
 namespace BCPAO.PhotoManager.Helpers
