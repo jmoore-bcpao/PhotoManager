@@ -287,7 +287,7 @@ namespace BCPAO.PhotoManager.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("UserTokens");
                 });
 
             modelBuilder.Entity("BCPAO.PhotoManager.Data.RolePermission", b =>

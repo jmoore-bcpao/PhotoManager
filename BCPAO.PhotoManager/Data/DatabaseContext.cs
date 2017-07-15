@@ -63,6 +63,11 @@ namespace BCPAO.PhotoManager.Data
                 entity.ToTable("UserClaims");
             });
 
+            builder.Entity<IdentityUserToken<int>>(entity =>
+            {
+                entity.ToTable("UserTokens");
+            });
+
             builder.Entity<IdentityUserLogin<int>>(entity =>
             {
                 entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
