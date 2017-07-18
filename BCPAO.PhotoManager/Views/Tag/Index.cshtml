@@ -60,9 +60,18 @@
         cursor: pointer;
         background: gray;
     }
-    .thumb:hover {
-        cursor: pointer;
-        border: chartreuse !important;
+    .thumb:hover img {
+        /*cursor: pointer;
+        content: "\f00e";
+        font-family: FontAwesome;*/
+    }
+    .watermark {
+        content: "\f00e";
+        font-family: FontAwesome;
+        position: relative;
+        top: -65px;
+        left: 25px;
+        opacity: 0.90;
     }
 </style>
 
@@ -89,7 +98,8 @@
             <tr>
                 <td style="display: none;">@photo.PhotoId</td>
                 <td class="width1 pad0 thumb">
-                    <img style="width:100px;height:75px;" src="@photo.ImageString" alt="@photo.ImageName" />
+                    <img class="thumb" style="width:100px;height:75px;" src="@photo.ImageString" alt="@photo.ImageName" />
+                    @*<div class="watermark"><i class="fa fa-search-plus fa-4x" aria-hidden="true"></i></div>*@
                 </td>
                 <td class="width120">
                     <input class="form-control" type="text" value="@photo.PropertyId" maxlength="7" />
