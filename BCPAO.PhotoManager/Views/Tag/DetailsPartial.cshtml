@@ -1,0 +1,84 @@
+@model BCPAO.PhotoManager.Models.PhotoViewModel
+
+<div id="target">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Photo Details #@Model.PhotoId</h4>
+    </div>
+    <form asp-action="PostModal" asp-controller="Home" data-ajax="true" data-ajax-method="POST" data-ajax-mode="REPLACE-WITH" data-ajax-update="#target">
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <td style="vertical-align: top;">
+                        <img src="@Model.ImageString" alt="@Model.ImageName" style="width: 250px; height: 200px;" />
+                    </td>
+                    <td style="vertical-align: top;">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PropertyId)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PropertyId)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.BuildingId)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.BuildingId)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.BuildingSeq)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.BuildingSeq)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MasterPhoto)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.MasterPhoto)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FrontPhoto)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FrontPhoto)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PublicPhoto)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PublicPhoto)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Status)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.UploadedBy)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.UploadedBy)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.UploadedDate)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.UploadedDate)
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" asp-action="Edit" asp-route-id="@Model.PhotoId">Edit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>

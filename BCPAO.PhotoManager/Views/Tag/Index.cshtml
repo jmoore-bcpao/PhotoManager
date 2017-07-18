@@ -1,4 +1,6 @@
-﻿@section NavBarText {
+﻿@model IEnumerable<BCPAO.PhotoManager.Models.PhotoViewModel>
+
+@section NavBarText {
     <text>Dashboard > Tag Photos</text>
 }
 
@@ -12,3 +14,141 @@
         </span>
     </h1>
 </div>
+
+
+<div>
+    <div class="input-group" style="margin-bottom: 10px;">
+        <div class="input-group-btn">
+            @*<button class="btn btn-default">View Un-Tagged Photos</button>&nbsp;&nbsp;*@
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Property ID @*<span class="caret"></span>*@</button>
+            @*<ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+            </ul>*@
+        </div>
+        <input type="text" class="form-control" aria-label="...">
+    </div>
+</div>
+
+
+<style>
+    th { text-transform: uppercase; }
+    .center { text-align: center; }
+    .width1 { width: 1px; }
+    .width100 { width: 100px; }
+    .width120 { width: 120px; }
+    .width140 { width: 140px; }
+    .width160 { width: 160px; }
+    .width180 { width: 180px; }
+    .width200 { width: 200px; }
+    .pad0 { padding: 0 !important; }
+    .error { color: red; font-weight: bold; display: none; }
+    .modal {
+    }
+    .modal-content {
+    }
+    .modal-container {
+    } 
+    .modal-backdrop {
+        z-index: -1;
+    }
+    textarea {
+        resize: none;
+    }
+    .table-hover tbody tr:hover td {
+        cursor: pointer;
+        background: gray;
+    }
+    .thumb:hover {
+        cursor: pointer;
+        border: chartreuse !important;
+    }
+</style>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Photo ID</th>
+                <th style="display: none;">Photo</th>
+                <th>Property ID</th>
+                <th>Building ID</th>
+                <th>Building Seq</th>
+                <th class="width1 center">Master</th>
+                <th class="width1 center">Front</th>
+                <th class="width1 center">Public</th>
+                <th>Status</th>
+                <th>Uploaded By</th>
+                <th>Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var photo in Model)
+        {
+            <tr>
+                <td style="display: none;">@photo.PhotoId</td>
+                <td class="width1 pad0 thumb">
+                    <img style="width:100px;height:75px;" src="@photo.ImageString" alt="@photo.ImageName" />
+                </td>
+                <td class="width120">
+                    <input class="form-control" type="text" value="@photo.PropertyId" maxlength="7" />
+                    <div class="error">INVALID</div>
+                </td>
+                <td class="width120">
+                    <input class="form-control" type="text" value="@photo.BuildingId" maxlength="3" />
+                    <div class="error">INVALID</div>
+                </td>
+                <td class="width120">
+                    <input class="form-control" type="text" value="@photo.BuildingSeq" maxlength="3" />
+                    <div class="error">INVALID</div>
+                </td>
+                <td class="width1 center">
+                    <input type="checkbox" checked="@photo.MasterPhoto" />
+                </td>
+                <td class="width1 center">
+                    <input type="checkbox" checked="@photo.FrontPhoto" />
+                </td>
+                <td class="width1 center">
+                    <input type="checkbox" checked="@photo.PublicPhoto" />
+                </td>
+                @*<td>
+                    <select class="form-control">
+                        <option>@photo.Status</option>
+                    </select>
+                </td>*@
+                <td>@photo.Status</td>
+                <td>
+                    <div style="color:aquamarine">@photo.UploadedBy</div>
+                    <div>@photo.UploadedDate.ToString("MM/dd/yyyy hh:mm:ss tt")</div>
+                </td>
+                <td>
+                    <div>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Details</a>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Save</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Remove</a>
+                    </div>
+                    <div style="margin-top: 10px; display: none;">
+                        Saved: 07/18/2017 12:50:33 PM
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@* The normal bootstrap modal with out any content in the modal-content div. Note that the id matches the data_target from the link*@
+<div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @*Content will be injected here*@
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+    </script>
+}

@@ -1,0 +1,119 @@
+@model IEnumerable<BCPAO.PhotoManager.Data.Photo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PropertyId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuildingId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuildingSeq)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageData)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageSize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTaken)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UploadedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UploadedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MasterPhoto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FrontPhoto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PublicPhoto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Active)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PropertyId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildingSeq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageData)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTaken)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MasterPhoto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrontPhoto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicPhoto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PhotoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PhotoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PhotoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

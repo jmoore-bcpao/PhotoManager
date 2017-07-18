@@ -1,0 +1,108 @@
+@model BCPAO.PhotoManager.Data.Photo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Photo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PropertyId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BuildingId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingSeq)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BuildingSeq)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageData)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImageData)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImageName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageSize)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImageSize)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTaken)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateTaken)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UploadedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UploadedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UploadedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UploadedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MasterPhoto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MasterPhoto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FrontPhoto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FrontPhoto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PublicPhoto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PublicPhoto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PhotoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

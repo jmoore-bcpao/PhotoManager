@@ -9,21 +9,12 @@ namespace BCPAO.PhotoManager.Controllers
 {
     public class SearchController : BaseController
     {
-        private new DatabaseContext _context;
-
         private const int PageSize = 25;
 
         public SearchController(UserManager<User> userManager, DatabaseContext context) : base(userManager, context)
         {
-            _context = context;
         }
-
-        [HttpGet]
-        public IActionResult RoyalSlider()
-        {
-            return View();
-        }
-
+        
         [HttpGet]
         public IActionResult Index()
         {

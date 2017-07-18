@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="~/css/application.css">
     <link rel="stylesheet" href="~/css/demo.min.css">
 
-    <link rel="stylesheet" href="~/lib/icheck/skins/square/blue.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/icheck/skins/all.css" asp-append-version="true" />
 
     
     @*<link rel="stylesheet" href="~/css/panel.css">
@@ -788,6 +788,24 @@
        ////   redirAfter: 700000,
        ////   countdownMessage: 'Redirecting in {timer} seconds.'
        ////});
+
+        $(document).ready(function () {
+            $('input[type="checkbox"]').iCheck({
+                checkboxClass: 'icheckbox_minimal-yellow',
+                radioClass: 'iradio_minimal-yellow',
+                increaseArea: '20%' // optional
+            });
+        });
+
+        // boostrap 4 load modal example from docs
+        $('#modal-container').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var url = button.attr("href");
+            var modal = $(this);
+
+            // note that this will replace the content of modal-content ever time the modal is opened
+            modal.find('.modal-content').load(url);
+        });
     </script>
     @RenderSection("scripts", required: false)
 </body>

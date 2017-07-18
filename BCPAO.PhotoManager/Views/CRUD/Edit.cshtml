@@ -1,0 +1,134 @@
+@model BCPAO.PhotoManager.Data.Photo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Photo</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="PhotoId" />
+        <div class="form-group">
+            <label asp-for="PropertyId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PropertyId" class="form-control" />
+                <span asp-validation-for="PropertyId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BuildingId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BuildingId" class="form-control" />
+                <span asp-validation-for="BuildingId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BuildingSeq" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BuildingSeq" class="form-control" />
+                <span asp-validation-for="BuildingSeq" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageData" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ImageData" class="form-control" />
+                <span asp-validation-for="ImageData" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ImageName" class="form-control" />
+                <span asp-validation-for="ImageName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageSize" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ImageSize" class="form-control" />
+                <span asp-validation-for="ImageSize" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateTaken" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DateTaken" class="form-control" />
+                <span asp-validation-for="DateTaken" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UploadedDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UploadedDate" class="form-control" />
+                <span asp-validation-for="UploadedDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UploadedBy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UploadedBy" class="form-control" />
+                <span asp-validation-for="UploadedBy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MasterPhoto" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MasterPhoto" class="form-control" />
+                <span asp-validation-for="MasterPhoto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FrontPhoto" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FrontPhoto" class="form-control" />
+                <span asp-validation-for="FrontPhoto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicPhoto" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PublicPhoto" class="form-control" />
+                <span asp-validation-for="PublicPhoto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Status" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Active" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Active" class="form-control" />
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
