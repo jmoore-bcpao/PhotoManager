@@ -95,13 +95,7 @@ namespace BCPAO.PhotoManager.Controllers
                     }
                 }
             }
-
-
-
-
-
-
-
+            
             //response = new FileResponse
             //{
             //    Files = new List<Photo>
