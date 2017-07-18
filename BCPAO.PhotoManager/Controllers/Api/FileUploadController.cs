@@ -19,24 +19,24 @@ namespace BCPAO.PhotoManager.Controllers
     [Route("api/FileUpload")]
     public class FileUploadController : Controller
     {
-        private readonly IPhotoRepository _photoRepository;
-        private readonly IOptions<ApplicationConfiguration> _appConfig;
-        private readonly IHostingEnvironment _environment;
+        private readonly IPhotoRepository _repo;
+        private readonly IOptions<ApplicationConfiguration> _config;
+        private readonly IHostingEnvironment _env;
         private readonly UserManager<User> _userManager;
         private readonly DatabaseContext _context;
 
         public FileUploadController(
             UserManager<User> userManager, 
             DatabaseContext context,
-            IPhotoRepository photoRepository,
-            IOptions<ApplicationConfiguration> appConfig,
-            IHostingEnvironment environment)
+            IPhotoRepository repo,
+            IOptions<ApplicationConfiguration> config,
+            IHostingEnvironment env)
             {
                 _userManager = userManager;
                 _context = context;
-                _photoRepository = photoRepository;
-                _appConfig = appConfig;
-                _environment = environment;
+                _repo = repo;
+                _config = config;
+                _env = env;
             }
 
         [Route("")]
@@ -55,7 +55,7 @@ namespace BCPAO.PhotoManager.Controllers
             
             if (ModelState.IsValid)
             {
-                var uploads = Path.Combine(@"C:\dev\BCPAO.PhotoManager\BCPAO.PhotoManager\", "Uploads");
+                var uploads = Path.Combine(_env.ContentRootPath, "Uploads");
 
                 foreach (var file in files)
                 {
@@ -63,7 +63,7 @@ namespace BCPAO.PhotoManager.Controllers
                     {
                         var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
-                        using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                        using (var fs = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
                         {
                             using (var ms = new MemoryStream())
                             {
@@ -88,7 +88,7 @@ namespace BCPAO.PhotoManager.Controllers
                                     Active = true
                                 };
 
-                                _photoRepository.Add(photo);
+                                _repo.Add(photo);
                             }
                         }
 

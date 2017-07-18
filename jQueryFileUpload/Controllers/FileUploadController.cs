@@ -8,11 +8,11 @@ namespace jQueryFileUpload.Controllers
     {
         private readonly IHostingEnvironment _env;
 
-        string tempPath = "~/somefiles/";
-        string serverMapPath = "~/Files/somefiles/";
-        string UrlBase = "/Files/somefiles/";
-        string DeleteURL = "/FileUpload/DeleteFile/?file=";
-        string DeleteType = "GET";
+        //string tempPath = "~/somefiles/";
+        //string serverMapPath = "~/Files/somefiles/";
+        //string UrlBase = "/Files/somefiles/";
+        //string DeleteURL = "/FileUpload/DeleteFile/?file=";
+        //string DeleteType = "GET";
         
         public FileUploadController(IHostingEnvironment env)
         {
@@ -39,7 +39,6 @@ namespace jQueryFileUpload.Controllers
         [HttpGet]
         public IActionResult GetFileList()
         {
-            var list = "";
             return View();
         }
 
