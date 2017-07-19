@@ -14,17 +14,17 @@ namespace BCPAO.PhotoManager
     {
         private readonly RoleManager<Role> _roleManager;
 
-        public RolesController(UserManager<User> userManager, RoleManager<Role> roleManager, DatabaseContext context) : base(userManager, context)
+        public RolesController(UserManager<User> userManager, DatabaseContext context, RoleManager<Role> roleManager) : base(userManager, context)
         {
             _roleManager = roleManager;
         }
         
         public async Task<IActionResult> Index()
         {
-            if (!HasPermission("VIEW_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("VIEW_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             var roles = _roleManager.Roles;
             return View(await roles.Include(r => r.RolePermissions).ToListAsync());
@@ -32,10 +32,10 @@ namespace BCPAO.PhotoManager
         
         public async Task<IActionResult> Details(int? id)
         {
-            if (!HasPermission("VIEW_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("VIEW_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             if (id == null)
             {
@@ -54,10 +54,10 @@ namespace BCPAO.PhotoManager
         
         public IActionResult Create()
         {
-            if (!HasPermission("CREATE_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("CREATE_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             ViewBag.PermissionGroups = PermissionGroup.GetList();
             ViewBag.Permissions = _context.Permissions.ToList().ToListViewModel();
@@ -68,10 +68,10 @@ namespace BCPAO.PhotoManager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RoleViewModel model)
         {
-            if (!HasPermission("CREATE_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("CREATE_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             if (ModelState.IsValid)
             {
@@ -97,10 +97,10 @@ namespace BCPAO.PhotoManager
         
         public async Task<IActionResult> Edit(int? id)
         {
-            if (!HasPermission("EDIT_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("EDIT_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             if (id == null)
             {
@@ -124,10 +124,10 @@ namespace BCPAO.PhotoManager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(RoleViewModel model)
         {
-            if (!HasPermission("EDIT_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("EDIT_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             var role = await _roleManager.Roles.Include(r => r.RolePermissions).FirstOrDefaultAsync(r => r.Id == model.Id);
 
@@ -161,10 +161,10 @@ namespace BCPAO.PhotoManager
         [ActionName("Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (!HasPermission("DELETE_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("DELETE_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             if (id == null)
             {
@@ -185,10 +185,10 @@ namespace BCPAO.PhotoManager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (!HasPermission("DELETE_ROLES"))
-            {
-                return Unauthorized();
-            }
+            //if (!HasPermission("DELETE_ROLES"))
+            //{
+            //    return Unauthorized();
+            //}
 
             var role = await _roleManager.FindByIdAsync(id.ToString());
 
