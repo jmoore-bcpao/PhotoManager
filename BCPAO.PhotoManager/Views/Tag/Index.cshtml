@@ -4,34 +4,6 @@
     <text>Dashboard > Tag Photos</text>
 }
 
-<div class="title-bar">
-    <h1 class="title-bar-title">
-        <span class="d-ib">Tag Photos</span>
-        <span class="d-ib">
-            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
-                <span class="sr-only">Add to shortcut list</span>
-            </a>
-        </span>
-    </h1>
-</div>
-
-
-<div>
-    <div class="input-group" style="margin-bottom: 10px;">
-        <div class="input-group-btn">
-            @*<button class="btn btn-default">View Un-Tagged Photos</button>&nbsp;&nbsp;*@
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Property ID @*<span class="caret"></span>*@</button>
-            @*<ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-            </ul>*@
-        </div>
-        <input type="text" class="form-control" aria-label="...">
-    </div>
-</div>
-
-
 <style>
     th { text-transform: uppercase; }
     .center { text-align: center; }
@@ -62,8 +34,8 @@
     }
     .thumb:hover img {
         /*cursor: pointer;
-        content: "\f00e";
-        font-family: FontAwesome;*/
+            content: "\f00e";
+            font-family: FontAwesome;*/
     }
     .watermark {
         content: "\f00e";
@@ -75,80 +47,105 @@
     }
 </style>
 
-<div class="table-responsive">
-    <table class="table table-bordered table-condensed">
-        <thead>
-            <tr>
-                <th>Photo ID</th>
-                <th style="display: none;">Photo</th>
-                <th>Property ID</th>
-                <th>Building ID</th>
-                <th>Building Seq</th>
-                <th class="width1 center">Master</th>
-                <th class="width1 center">Front</th>
-                <th class="width1 center">Public</th>
-                <th>Status</th>
-                <th>Uploaded By</th>
-                <th>Manage</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var photo in Model)
-        {
-            <tr>
-                <td style="display: none;">@photo.PhotoId</td>
-                <td class="width1 pad0 thumb">
-                    <img class="thumb" style="width:100px;height:75px;" src="@photo.ImageString" alt="@photo.ImageName" />
-                    @*<div class="watermark"><i class="fa fa-search-plus fa-4x" aria-hidden="true"></i></div>*@
-                </td>
-                <td class="width120">
-                    <input class="form-control" type="text" value="@photo.PropertyId" maxlength="7" />
-                    <div class="error">INVALID</div>
-                </td>
-                <td class="width120">
-                    <input class="form-control" type="text" value="@photo.BuildingId" maxlength="3" />
-                    <div class="error">INVALID</div>
-                </td>
-                <td class="width120">
-                    <input class="form-control" type="text" value="@photo.BuildingSeq" maxlength="3" />
-                    <div class="error">INVALID</div>
-                </td>
-                <td class="width1 center">
-                    <input type="checkbox" checked="@photo.MasterPhoto" />
-                </td>
-                <td class="width1 center">
-                    <input type="checkbox" checked="@photo.FrontPhoto" />
-                </td>
-                <td class="width1 center">
-                    <input type="checkbox" checked="@photo.PublicPhoto" />
-                </td>
-                @*<td>
-                    <select class="form-control">
-                        <option>@photo.Status</option>
-                    </select>
-                </td>*@
-                <td>@photo.Status</td>
-                <td>
-                    <div style="color:aquamarine">@photo.UploadedBy</div>
-                    <div>@photo.UploadedDate.ToString("MM/dd/yyyy hh:mm:ss tt")</div>
-                </td>
-                <td>
-                    <div>
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Details</a>
-                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Save</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Remove</a>
-                    </div>
-                    <div style="margin-top: 10px; display: none;">
-                        Saved: 07/18/2017 12:50:33 PM
-                    </div>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+<div class="title-bar">
+    <h1 class="title-bar-title">
+        <span class="d-ib">Tag Photos</span>
+        <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+                <span class="sr-only">Add to shortcut list</span>
+            </a>
+        </span>
+    </h1>
 </div>
 
-@* The normal bootstrap modal with out any content in the modal-content div. Note that the id matches the data_target from the link*@
+<form asp-action="Index" method="post">
+    <div class="input-group" style="margin-bottom: 10px;">
+        <div class="input-group-btn">
+            @*<button class="btn btn-default">View Un-Tagged Photos</button>&nbsp;&nbsp;*@
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Property ID @*<span class="caret"></span>*@</button>
+            @*<ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+            </ul>*@
+        </div>
+        <input type="text" class="form-control" aria-label="...">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>Photo ID</th>
+                    <th style="display: none;">Photo</th>
+                    <th>Property ID</th>
+                    <th>Building ID</th>
+                    <th>Building Seq</th>
+                    <th class="width1 center">Master</th>
+                    <th class="width1 center">Front</th>
+                    <th class="width1 center">Public</th>
+                    <th>Status</th>
+                    <th>Uploaded By</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var photo in Model)
+            {
+                <tr>
+                    <td style="display: none;">@photo.PhotoId</td>
+                    <td class="width1 pad0 thumb">
+                        <img class="thumb" style="width:100px;height:75px;" src="@photo.ImageString" alt="@photo.ImageName" />
+                        @*<div class="watermark"><i class="fa fa-search-plus fa-4x" aria-hidden="true"></i></div>*@
+                    </td>
+                    <td class="width120">
+                        <input class="form-control" type="text" value="@photo.PropertyId" maxlength="7" />
+                        <div class="error">INVALID</div>
+                    </td>
+                    <td class="width120">
+                        <input class="form-control" type="text" value="@photo.BuildingId" maxlength="3" />
+                        <div class="error">INVALID</div>
+                    </td>
+                    <td class="width120">
+                        <input class="form-control" type="text" value="@photo.BuildingSeq" maxlength="3" />
+                        <div class="error">INVALID</div>
+                    </td>
+                    <td class="width1 center">
+                        <input type="checkbox" checked="@photo.MasterPhoto" />
+                    </td>
+                    <td class="width1 center">
+                        <input type="checkbox" checked="@photo.FrontPhoto" />
+                    </td>
+                    <td class="width1 center">
+                        <input type="checkbox" checked="@photo.PublicPhoto" />
+                    </td>
+                    @*<td>
+                        <select class="form-control">
+                            <option>@photo.Status</option>
+                        </select>
+                    </td>*@
+                    <td>@photo.Status</td>
+                    <td>
+                        <div style="color:aquamarine">@photo.UploadedBy</div>
+                        <div>@photo.UploadedDate.ToString("MM/dd/yyyy hh:mm:ss tt")</div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="submit" class="btn btn-success" asp-action="Edit" asp-route-id="@photo.PhotoId">Save</button>
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Details</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@photo.PhotoId" data-toggle="modal" data-target="#modal-container">Remove</a>
+                        </div>
+                        <div style="margin-top: 10px; display: none;">
+                            Saved: 07/18/2017 12:50:33 PM
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</form>
+
 <div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

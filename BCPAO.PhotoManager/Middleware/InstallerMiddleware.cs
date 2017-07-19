@@ -16,9 +16,9 @@ namespace BCPAO.PhotoManager.Middleware
 
         public Task Invoke(HttpContext context)
         {
-            var dbContext = context.RequestServices.GetService(typeof(DatabaseContext)) as DatabaseContext;
+            var db = context.RequestServices.GetService(typeof(DatabaseContext)) as DatabaseContext;
 
-            if (dbContext.Users.Count() == 0)
+            if (!db.Users.Any())
             {
                 if (!context.Request.Path.ToString().Contains("/Install"))
                 {

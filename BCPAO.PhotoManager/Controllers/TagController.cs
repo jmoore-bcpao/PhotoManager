@@ -38,6 +38,7 @@ namespace BCPAO.PhotoManager.Controllers
                     UploadedDate = m.UploadedDate,
                     DateTaken = m.DateTaken,
                     Active = m.Active,
+                    UserId = m.UserId,
                     ImageString = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(m.ImageData))
                 }).Take(10).Skip(0).ToListAsync();
 
@@ -49,37 +50,36 @@ namespace BCPAO.PhotoManager.Controllers
             return View(photos);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(int id, [Bind("PhotoId,PropertyId,BuildingId,BuildingSeq,ImageData,ImageName,ImageSize,DateTaken,UploadedDate,UploadedBy,UserId,MasterPhoto,FrontPhoto,PublicPhoto,Status,Active")] Photo photo)
         {
-            if (id == null)
+            if (id != photo.PhotoId)
             {
                 return NotFound();
             }
 
-            var photo = await _context.Photos
-                .Select(m => new PhotoViewModel
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    PhotoId = m.PhotoId,
-                    PropertyId = m.PropertyId,
-                    BuildingId = m.BuildingId,
-                    BuildingSeq = m.BuildingSeq,
-                    MasterPhoto = m.MasterPhoto,
-                    FrontPhoto = m.FrontPhoto,
-                    PublicPhoto = m.PublicPhoto,
-                    Status = m.Status,
-                    UploadedBy = m.UploadedBy,
-                    UploadedDate = m.UploadedDate,
-                    DateTaken = m.DateTaken,
-                    Active = m.Active,
-                    ImageString = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(m.ImageData))  // convert back to binary
-                }).SingleOrDefaultAsync(m => m.PhotoId == id);
-
-            if (photo == null)
-            {
-                return NotFound();
+                    _context.Update(photo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PhotoExists(photo.PhotoId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
             }
-
-            return View(photo);
+            return PartialView(photo);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -104,6 +104,7 @@ namespace BCPAO.PhotoManager.Controllers
                     UploadedDate = m.UploadedDate,
                     DateTaken = m.DateTaken,
                     Active = m.Active,
+                    UserId = m.UserId,
                     ImageString = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(m.ImageData))
                 }).SingleOrDefaultAsync(m => m.PhotoId == id);
 
@@ -128,8 +129,45 @@ namespace BCPAO.PhotoManager.Controllers
             return PartialView("CloseModal", closeModal);
         }
 
+
+
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var photo = await _context.Photos
+                .Select(m => new PhotoViewModel
+                {
+                    PhotoId = m.PhotoId,
+                    PropertyId = m.PropertyId,
+                    BuildingId = m.BuildingId,
+                    BuildingSeq = m.BuildingSeq,
+                    MasterPhoto = m.MasterPhoto,
+                    FrontPhoto = m.FrontPhoto,
+                    PublicPhoto = m.PublicPhoto,
+                    Status = m.Status,
+                    UploadedBy = m.UploadedBy,
+                    UploadedDate = m.UploadedDate,
+                    DateTaken = m.DateTaken,
+                    Active = m.Active,
+                    UserId = m.UserId,
+                    ImageString = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(m.ImageData))  // convert back to binary
+                }).SingleOrDefaultAsync(m => m.PhotoId == id);
+
+            if (photo == null)
+            {
+                return NotFound();
+            }
+
+            return View(photo);
+        }
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, 
-        // for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // for more details see http://go.microsoft.com/fwlink/?LinkId=317598
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PhotoId,PropertyId,BuildingId,BuildingSeq,ImageData,ImageName,ImageSize,DateTaken,UploadedDate,UploadedBy,UserId,MasterPhoto,FrontPhoto,PublicPhoto,Status,Active")] Photo photo)
@@ -161,6 +199,9 @@ namespace BCPAO.PhotoManager.Controllers
             }
             return PartialView(photo);
         }
+
+
+
 
         public async Task<IActionResult> Delete(int? id)
         {

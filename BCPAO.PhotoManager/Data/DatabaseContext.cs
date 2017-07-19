@@ -137,18 +137,18 @@ namespace BCPAO.PhotoManager.Data
                 entity.Property(e => e.ImageSize);
                 entity.Property(e => e.DateTaken);
                 entity.Property(e => e.UploadedDate).IsRequired();
-                entity.Property(e => e.UploadedBy).HasMaxLength(20);
+                entity.Property(e => e.UploadedBy).HasMaxLength(20).IsRequired();
                 entity.Property(e => e.MasterPhoto);
                 entity.Property(e => e.FrontPhoto);
                 entity.Property(e => e.PublicPhoto);
-                entity.Property(e => e.Status).HasMaxLength(10);
+                entity.Property(e => e.Status).HasMaxLength(10).IsRequired();
                 entity.Property(e => e.Active);
                 entity.ToTable("Photos");
             });
         }
         
-        public virtual new DbSet<Role> Roles { get; set; }
-        public virtual new DbSet<User> Users { get; set; }
+        public new virtual DbSet<Role> Roles { get; set; }
+        public new virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<UserPermission> UserPermissions { get; set; }

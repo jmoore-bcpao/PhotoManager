@@ -15,6 +15,16 @@ using System.Threading.Tasks;
 
 namespace BCPAO.PhotoManager.Controllers
 {
+    public enum Status
+    {
+        Untagged,
+        Pending,
+        Rejected,
+        Completed,
+        Archived
+    }
+
+
     [Produces("application/json")]
     [Route("api/FileUpload")]
     public class FileUploadController : Controller
@@ -71,20 +81,20 @@ namespace BCPAO.PhotoManager.Controllers
 
                                 var photo = new PhotoViewModel
                                 {
-                                    PropertyId = 0,
-                                    BuildingId = 1,
-                                    BuildingSeq = 1,
+                                    PropertyId = null,
+                                    BuildingId = null,
+                                    BuildingSeq = null,
                                     ImageData = ms.ToArray(),
                                     ImageName = fileName,
                                     ImageSize = ByteSize.FromBytes(file.Length).KiloBytes,
-                                    DateTaken = DateTime.UtcNow,
-                                    UploadedDate = DateTime.UtcNow,
+                                    DateTaken = null,
+                                    UploadedDate = DateTime.Now,
                                     UserId = Convert.ToInt32(_userManager.GetUserId(User)),
                                     UploadedBy = _userManager.GetUserName(User),
-                                    MasterPhoto = false,
-                                    FrontPhoto = false,
-                                    PublicPhoto = false,
-                                    Status = "Pending",
+                                    MasterPhoto = null,
+                                    FrontPhoto = null,
+                                    PublicPhoto = null,
+                                    Status = Status.Untagged.ToString(),
                                     Active = true
                                 };
 
